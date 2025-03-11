@@ -38,5 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Updating database models (on development)
 
 In order to successfully modify the models from prisma, run these commands on the terminal:
-    npx prisma generate
-    npx prisma db push
+```bash
+npx prisma generate
+npx prisma db push
+```
