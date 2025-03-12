@@ -3,9 +3,12 @@
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
-@tailwind base;
-@tailwind components;
+@import "uploadthing/tw/v4";
+@source "@/node_modules/@uploadthing/dist";
+
 @tailwind utilities;
+
+
 
 html,
 body,
