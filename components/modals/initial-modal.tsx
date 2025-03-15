@@ -1,8 +1,9 @@
 "use client";
+import axios from "axios"
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
-import "@uploadthing/react/styles.css";
+// import "@uploadthing/react/styles.css";
 
 
 import {
@@ -27,8 +28,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { FileUpload } from "@/components/file-upload";
+import { useRouter } from "next/navigation";
 
-//create form schema:
+//create form schema for storing the server name info and 
+//the server image url
 const formSchema = z.object({
     name: z.string().min(1, {
         message: "Server name is required."
@@ -41,12 +44,18 @@ const formSchema = z.object({
 export const InitialModal = () => {
     const [isMounted, setIsMounted] = useState(false);
 
-    //apply useEffect hook here:
+    const router = useRouter();
+
+    //apply useEffect hook here to set the page to be mounted, stating that
+    //components are created and inserted in the DOM (document object model)
     useEffect(() => {
         setIsMounted(true)
     },[]);
 
-
+    /**
+     * Create a form that uses zod resolver (schema validation with static type infeference)
+     * and its default values as empty
+     */
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -59,7 +68,17 @@ export const InitialModal = () => {
     const isLoading = form.formState.isSubmitting;
     //create event handler when user submits form
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        try {
+            console.log(values);
+            await axios.post("/api/servers", values);       //cast POST request and send values to endpoint
+                                                            // /api.servers
+            form.reset();                                   //reset form
+            router.refresh();                               //refresh router and reload window
+            window.location.reload();
+            
+        } catch (error){
+            console.log(error)
+        }
     }
 
     if(!isMounted){
