@@ -2,6 +2,7 @@
 
 import { Plus } from "lucide-react";
 import { ActionTooltip } from "@/components/action-tooltip";
+import { useModal } from "@/hooks/use-modal-store";
 /**
  * This component is responsible for creating a button that enables adding a server 
  * 
@@ -9,6 +10,9 @@ import { ActionTooltip } from "@/components/action-tooltip";
  * @returns 
  */
 export const NavigationAction = () => {
+    //add useModal hook here; update onOpen state from false to true:
+    const { onOpen } = useModal();
+
     return (  
         <div>
             {/**Pass on props where the tooltip would be displayed to while cursor is hovered */}
@@ -19,6 +23,8 @@ export const NavigationAction = () => {
             
             >
             <button
+                //insert onClick event for adding server here:
+                onClick={() => onOpen("createServer")}          //on open but on create server mode
                 className="group flex items-center"
             >
                <div className="flex mx-3 h-[48px] w-[48px] rounded-[24px] 
