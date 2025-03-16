@@ -14,6 +14,7 @@ export async function POST(req: Request) {
         }
 
         //create server here:
+        //define server here with a list of channels and members; invite code is of uuid
         const server = await db.server.create({
             data: {
                 profileId: profile.id,
