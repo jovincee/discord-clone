@@ -51,7 +51,7 @@ export const NavigationItem = ({
             )}/>
             {/**Create Server bubble placeholder here with default and dynamic classes */}
             <div className={cn(
-                "relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden",
+                "relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden cursor-pointer",
                 params?.serverId === id && "bg-primary/10 text-primary rounded-[16px]"            
             )}>
             {/**Create an Image component from the chosen server image from user */}
