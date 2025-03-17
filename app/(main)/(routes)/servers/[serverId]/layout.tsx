@@ -12,6 +12,8 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs'
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 //Define dataypes for children and params
 interface ServerIdLayoutProps {
@@ -60,8 +62,9 @@ const ServerIdLayout = async ({
         return redirect("/")        //redirect to the root page
     }
 
-
+    //add a suspense; fallback should be Loading screen
     return (
+        <Suspense fallback={<Loading/>} >
         <div className="h-full">
             {/**
              * Create a server side bar on the very left corner of screen
@@ -77,6 +80,7 @@ const ServerIdLayout = async ({
             </main>
             
         </div>
+        </Suspense>
     )
 
     
