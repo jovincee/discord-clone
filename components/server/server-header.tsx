@@ -10,7 +10,12 @@ import {
     DropdownMenuTrigger 
 
 } from "@/components/ui/dropdown-menu";
-
+import { useModal } from "@/hooks/use-modal-store";
+/**
+ * Pass on props for:
+ * -server
+ * -role
+ */
 interface ServerHeaderProps {
     server: ServerWithMembersWithProfiles
     role?: MemberRole;
@@ -23,8 +28,14 @@ const ServerHeader = ({
     role
 } : ServerHeaderProps
 ) => {
+
+    /**
+     * Define server roles here (admin and moderator)
+     */
     const isAdmin = role === MemberRole.ADMIN;
     const isModerator = isAdmin || role === MemberRole.MODERATOR;
+    //call hook here:
+    const { onOpen } = useModal();
 
 
     return ( <div>
@@ -47,26 +58,30 @@ const ServerHeader = ({
             <DropdownMenuContent
                 className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]"
             >
+                {/**Moderator can invite people*/}
                 {isModerator && (
                     <DropdownMenuItem
+                        onClick={() => onOpen("invite", { server })}            //pass on params to modal store
                         className={"text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer"}
                     >
                         Invite People
                         <UserPlus className="h-4 w-4 ml-auto"/>
                     </DropdownMenuItem>
                 )}
-
+                {/**Admin can modify Server Settings*/}
                 {isAdmin && (
                     <DropdownMenuItem
+                        onClick={() => {onOpen("editServer", { server })}}      //pass on params to enter edit server mode
                         className={"px-3 py-2 text-sm cursor-pointer"}
                     >
                         Server Settings
                         <Settings className="h-4 w-4 ml-auto"/>
                     </DropdownMenuItem>
                 )}
-
+                {/**Admin can manage members*/}
                 {isAdmin && (
                     <DropdownMenuItem
+                        onClick={() => {}}
                         className={"px-3 py-2 text-sm cursor-pointer"}
                     >
                         Manage Members
@@ -74,8 +89,10 @@ const ServerHeader = ({
                     </DropdownMenuItem>
                 )}
 
+                 {/**Admin can create channel*/}
                 {isAdmin && (
                     <DropdownMenuItem
+                        onClick={() => {}}
                         className={"px-3 py-2 text-sm cursor-pointer"}
                     >
                         Create Channel
@@ -87,9 +104,10 @@ const ServerHeader = ({
                     <DropdownMenuSeparator/>
 
                 )}
-
+                {/**Admin can delete server*/}
                 {isAdmin && (
                     <DropdownMenuItem
+                        onClick={() => {}}
                         className={"px-3 py-2 text-sm text-rose-700 cursor-pointer"}
                     >
                         Delete Server
@@ -99,6 +117,7 @@ const ServerHeader = ({
                 {/**Feature only rendered if user is neither admin or moderator; user can leave server */}
                 {!isAdmin && (
                     <DropdownMenuItem
+                        onClick={() => {}}
                         className={"px-3 py-2 text-sm text-rose-700 cursor-pointer"}
                     >
                         Leave Server

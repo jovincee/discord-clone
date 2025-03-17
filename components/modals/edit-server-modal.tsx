@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { useEffect } from "react";
 
 //create form schema for storing the server name info and 
 //the server image url
@@ -41,14 +42,16 @@ const formSchema = z.object({
     })
 })
 
-export const CreateServerModal = () => {
+export const EditServerModal = () => {
     //define Modal Store here for server-related modifications:
-    const { isOpen, onClose, type } = useModal();
+    const { isOpen, onClose, type, data } = useModal();
     //define router for navigating through pages (url)
     const router = useRouter();
+    
 
-    //check to see if modal is open and user is attempting to create a server
-    const isModalOpen = isOpen && type === "createServer";
+    //check to see if modal is open and user edits a server
+    const isModalOpen = isOpen && type === "editServer";
+    const { server } = data;
 
     /**
      * Create a form that uses zod resolver (schema validation with static type infeference)
@@ -62,15 +65,27 @@ export const CreateServerModal = () => {
         }
     })
 
+    useEffect(() => {
+        //check if server exists:
+        
+        if(server) {
+            
+            form.setValue("name", server.name);
+            form.setValue("imageUrl", server.imageUrl);
+        }
+    },[server, form])
+
+    console.log("exists");
+    console.log(server?.name, server?.imageUrl);
+
     //create variable when page is loading
     const isLoading = form.formState.isSubmitting;
     //create event handler when user submits form
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            console.log(values);
-            await axios.post("/api/servers", values);       //cast POST request and send values to endpoint
+            
+            await axios.patch(`/api/servers/${server?.id}`, values);       //cast POST request and send values to endpoint
                                                             // /api.servers
-            form.reset();                                   //reset form
             router.refresh();                               //refresh router and reload window
             onClose();
        
@@ -80,9 +95,11 @@ export const CreateServerModal = () => {
         }
     }
 
+
+
     //create an event handler here when dialog is closed by the user:
     const handleClose = () => {
-        form.reset();   //resets form
+        
         onClose();      //closes the state obtained from useModalStore hook
     }
 
@@ -168,7 +185,7 @@ export const CreateServerModal = () => {
                         disabled={isLoading}
                             
                         >
-                            Create
+                            Save
 
                         </Button>
 
