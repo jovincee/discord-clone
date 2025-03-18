@@ -107,7 +107,7 @@ const ServerHeader = ({
                 {/**Admin can delete server*/}
                 {isAdmin && (
                     <DropdownMenuItem
-                        onClick={() => {}}
+                        onClick={() => { onOpen("deleteServer", { server })}}
                         className={"px-3 py-2 text-sm text-rose-700 cursor-pointer"}
                     >
                         Delete Server

@@ -7,6 +7,7 @@ import { InviteModal } from "@/components/modals/invite-modal";
 import { MembersModal } from "@/components/modals/members-modal";
 import { CreateChannelModal } from "@/components/modals/create-channel-modal";
 import { LeaveServerModal } from "@/components/modals/leave-server-modal";
+import { DeleteServerModal } from "../modals/delete-server-modal";
 /**
  * Create a Modal Provider that provides instructions on how to obtain a value for a dependency
  * This provider also handles mounting and unmounting states of the components.
@@ -34,6 +35,7 @@ export const ModalProvider = () => {
             <MembersModal />
             <CreateChannelModal />
             <LeaveServerModal />
+            <DeleteServerModal />
         
         </>
 
