@@ -39,7 +39,7 @@ export const DeleteServerModal = () => {
             setIsLoading(true);
 
             await axios.delete(`/api/servers/${server?.id}`);
-            
+
             onClose();
             router.refresh();
             router.push("/");
@@ -76,7 +76,7 @@ export const DeleteServerModal = () => {
                 <DialogFooter className="bg-white dark:bg-[#35373d] px-6 py-4">
                     <div className="flex items-center bg-white dark:bg-[#35373d] justify-between w-full">
                         <Button
-                            className="cursor-pointer bg-zinc-600"
+                            className="cursor-pointer bg-zinc-300 dark:bg-zinc-600"
                             disabled={isLoading}
                             onClick={onClose}
                             variant="ghost"                        
