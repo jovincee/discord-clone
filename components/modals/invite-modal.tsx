@@ -85,7 +85,8 @@ export const InviteModal = () => {
                     </Label>
                     <div className="flex items-center mt-2 gap-x-2">
                         
-                        <Input 
+                        <Input
+                            readOnly
                             disabled={isLoading}
                             className="bg-zinc-300/50 border-0 dark:bg-zinc-900 text-black dark:text-white focus-visible:ring-0 
                             focus-visible:ring-offset-0"

@@ -47,7 +47,7 @@ const ServerHeader = ({
                 <button
                     className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 
                     dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10
-                    dark:hover:bg-zinc-700/50 transition"
+                    dark:hover:bg-zinc-700/50 transition cursor-pointer"
                 >
                     {server.name}
                     <ChevronDown className="h-5 w-5 ml-auto" />
@@ -117,7 +117,7 @@ const ServerHeader = ({
                 {/**Feature only rendered if user is neither admin or moderator; user can leave server */}
                 {!isAdmin && (
                     <DropdownMenuItem
-                        onClick={() => {}}
+                        onClick={() => { onOpen("leaveServer", { server }) }}
                         className={"px-3 py-2 text-sm text-rose-700 cursor-pointer"}
                     >
                         Leave Server
