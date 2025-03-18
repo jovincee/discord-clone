@@ -92,7 +92,7 @@ const ServerHeader = ({
                  {/**Admin can create channel*/}
                 {isAdmin && (
                     <DropdownMenuItem
-                        onClick={() => {}}
+                        onClick={() => { onOpen("createChannel") }}
                         className={"px-3 py-2 text-sm cursor-pointer"}
                     >
                         Create Channel

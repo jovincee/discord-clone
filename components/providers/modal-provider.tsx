@@ -5,6 +5,7 @@ import { EditServerModal } from "@/components/modals/edit-server-modal";
 import { useEffect, useState } from "react";
 import { InviteModal } from "@/components/modals/invite-modal";
 import { MembersModal } from "@/components/modals/members-modal";
+import { CreateChannelModal } from "@/components/modals/create-channel-modal";
 /**
  * Create a Modal Provider that provides instructions on how to obtain a value for a dependency
  * This provider also handles mounting and unmounting states of the components.
@@ -30,6 +31,7 @@ export const ModalProvider = () => {
             <InviteModal />
             <EditServerModal />
             <MembersModal />
+            <CreateChannelModal/>
         
         </>
 
