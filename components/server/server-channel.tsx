@@ -19,18 +19,21 @@ const channelIconMap = {
 
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "../action-tooltip";
+import { useModal } from "@/hooks/use-modal-store";
 
 export const ServerChannel = ({
     channel,
     server,
     role
 } : ServerChannelProps) => {
+    const { onOpen } = useModal();
     //define params and router here to change screens for navigating to a specific channel
     const params = useParams();
     const router = useRouter();
 
     //create dynamic icon for each channel
     const Icon = channelIconMap[channel.type];
+   
 
     return (
         <button
@@ -56,7 +59,8 @@ export const ServerChannel = ({
                     
                     <ActionTooltip label="Edit">
                         {/**Add a click event handler to enable editing server */}
-                        <Edit 
+                        <Edit
+                            onClick={() => onOpen("editChannel",{ server, channel })}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
 
@@ -64,6 +68,7 @@ export const ServerChannel = ({
                     <ActionTooltip label="Delete">
                         {/**Add a click event handler to enable deleting server */}
                         <Trash
+                            onClick={() => onOpen("deleteChannel",{ server, channel })}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
 

@@ -75,8 +75,6 @@ export const EditServerModal = () => {
         }
     },[server, form])
 
-    console.log("exists");
-    console.log(server?.name, server?.imageUrl);
 
     //create variable when page is loading
     const isLoading = form.formState.isSubmitting;

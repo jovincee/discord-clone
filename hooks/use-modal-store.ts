@@ -4,18 +4,20 @@
  * states are managed here using the Zustand library
  */
 
-import { ChannelType, Server } from "@prisma/client";
+import { ChannelType, Server, Channel} from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "createServer" | "editServer" | "invite" | "members" | "createChannel" | 
+export type ModalType = "createServer" | "editServer" | "invite" | "members" | "createChannel" | "deleteChannel" | "editChannel" |
 "leaveServer" | "deleteServer";
 
 /**
  * Create a zustand store for modal; creating server, editing server, invite people,
  */
 interface ModalData {
-    server?: Server
-    channelType?: ChannelType
+    server?: Server;
+    channel?: Channel;
+    channelType?: ChannelType;
+    
 }
 
 interface ModalStore {

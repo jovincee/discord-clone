@@ -43,7 +43,7 @@ export const ServerSidebar = async ({
     serverId
 }: ServerSidebarProps) => {
     const profile = await currentProfile();
-    console.log("Server id:",serverId)
+
 
     //if profile doesn't exist, then redirect user to root page
     if(!profile) { 
@@ -102,7 +102,6 @@ export const ServerSidebar = async ({
         //find the current user's role by finding its profile (? is necessary to consider the
         //possibility of the profile Id to be null) and obtaining the user's role
         const role = server.members.find((member) => member.profileId === profile.id)?.role;
-        console.log("Role: ", role)
     return (
         //create a sidebar with a lighter shade of black-grey compared to the very-left sidebar
         <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
