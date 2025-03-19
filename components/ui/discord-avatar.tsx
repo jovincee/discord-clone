@@ -23,7 +23,7 @@ function DiscordAvatar({
   fallback = "U",
   alt = "User avatar",
   size = "md",
-  status = "online",
+  status = null,    //can be set
   showStatusOnHover = true,
   className,
 }: DiscordAvatarProps) {

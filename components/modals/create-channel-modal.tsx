@@ -38,6 +38,7 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { ChannelType } from "@prisma/client";
+import { useEffect } from "react";
 
 
 //create form schema for naming the channel.
@@ -58,13 +59,14 @@ const formSchema = z.object({
 
 export const CreateChannelModal = () => {
     //define Modal Store here for server-related modifications:
-    const { isOpen, onClose, type } = useModal();
+    const { isOpen, onClose, type, data } = useModal();
     //define router for navigating through pages (url)
     const params = useParams();
     const router = useRouter();
 
     //check to see if modal is open and user is attempting to create a server
     const isModalOpen = isOpen && type === "createChannel";
+    const { channelType } = data;
 
     /**
      * Create a form that uses zod resolver (schema validation with static type infeference)
@@ -74,9 +76,20 @@ export const CreateChannelModal = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name:"",
-            type:ChannelType.TEXT,           
+            type: channelType || ChannelType.TEXT,           
         }
     })
+
+    //add useEffect for when user clicks editing a specific channel (x channel + button)
+    useEffect(() => {
+        //extract channel type from data:
+        if (channelType) {
+            form.setValue("type", channelType);
+        } else {
+            form.setValue("type", ChannelType.TEXT);
+        }
+
+    },[channelType, form])
 
     //create variable when page is loading
     const isLoading = form.formState.isSubmitting;

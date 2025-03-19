@@ -4,7 +4,7 @@
  * states are managed here using the Zustand library
  */
 
-import { Server } from "@prisma/client";
+import { ChannelType, Server } from "@prisma/client";
 import { create } from "zustand";
 
 export type ModalType = "createServer" | "editServer" | "invite" | "members" | "createChannel" | 
@@ -15,6 +15,7 @@ export type ModalType = "createServer" | "editServer" | "invite" | "members" | "
  */
 interface ModalData {
     server?: Server
+    channelType?: ChannelType
 }
 
 interface ModalStore {

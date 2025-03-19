@@ -4,15 +4,20 @@
  * 
  * @returns Server Sidebar component
  */
+//6:20:26
 
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { ChannelType, MemberRole } from "@prisma/client";
 import { redirect } from "next/navigation";
-import ServerHeader from "./server-header";
-import { ServerSearch } from "./server-search";
+import ServerHeader from "@/components/server/server-header";
+import { ServerSearch } from "@/components/server/server-search";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { ServerSection } from "@/components/server/server-section";
+import { ServerChannel } from "@/components/server/server-channel";
+import { ServerMember } from "@/components/server/server-member";
 
 //create interface to define serverId's datatype
 interface ServerSidebarProps {
@@ -97,7 +102,7 @@ export const ServerSidebar = async ({
         //find the current user's role by finding its profile (? is necessary to consider the
         //possibility of the profile Id to be null) and obtaining the user's role
         const role = server.members.find((member) => member.profileId === profile.id)?.role;
-        console.log("Text channel: ", textChannels)
+        console.log("Role: ", role)
     return (
         //create a sidebar with a lighter shade of black-grey compared to the very-left sidebar
         <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
@@ -160,7 +165,103 @@ export const ServerSidebar = async ({
                         ]}
                     />
                 </div>
+                <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2"/>
+                {/**Check to see if text channel is empty */}
+                <div className="space-y-[2px]">
+                {!!textChannels?.length && (
+                    <div className="mb-2">
+                        <ServerSection 
+                            label="Text Channels"
+                            sectionType="channels"
+                            channelType={ChannelType.TEXT}
+                            role={role}
+                        />
+                        {/**Begin showing the channels here: */}
+                        {textChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                role={role}
+                                server={server}
+                            
+                            />
+                        ))}
+                    
+
+                    </div>
+                )}
+                </div>
+                {/**Check to see if audio channel is empty */}
+                <div className="space-y-[2px]">
+                {!!audioChannels?.length && (
+                    <div className="mb-2">
+                        <ServerSection 
+                            label="Audio Channels"
+                            sectionType="channels"
+                            channelType={ChannelType.AUDIO}
+                            role={role}
+                        />
+                        {/**Begin showing the channels here: */}
+                        {audioChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                role={role}
+                                server={server}
+                            
+                            />
+                        ))}
+
+                </div>
+            )}
+                </div>
+                {/**Check to see if video channel is empty */}
+                <div className="space-y-[2px]">
+                {!!videoChannels?.length && (
+                    <div className="mb-2">
+                        <ServerSection 
+                            label="Video Channels"
+                            sectionType="channels"
+                            channelType={ChannelType.VIDEO}
+                            role={role}
+                        />
+                        {/**Begin showing the channels here: */}
+                        {videoChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                role={role}
+                                server={server}
+                            
+                            />
+                        ))}
+
+                </div>
+            )}
+                </div>
+            {/**Check to see if list of members is empty */}
+            {!!members?.length && (
+                    <div className="mb-2">
+                        <ServerSection 
+                            label="Members"
+                            channelType={ChannelType.VIDEO}
+                            sectionType="members"
+                            role={role}
+                            server={server}
+                        />
+                        {/**Begin showing the channels here: */}
+                        {members.map((member) => (
+                            <ServerMember 
+                                key={member.id}
+                                member={member}
+                                server={server}
+                            />
+                        ))}
+
+                </div>
+            )}
             </ScrollArea>
+            
 
         </div>
     )
