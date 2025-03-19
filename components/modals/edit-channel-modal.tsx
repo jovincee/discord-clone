@@ -89,7 +89,7 @@ export const EditChannelModal = () => {
         }
         
 
-    },[channelType, form])
+    },[form])
 
     //create variable when page is loading
     const isLoading = form.formState.isSubmitting;
