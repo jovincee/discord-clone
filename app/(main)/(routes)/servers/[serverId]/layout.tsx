@@ -58,6 +58,7 @@ const ServerIdLayout = async ({
 
     });
 
+
     if (!server) {
         return redirect("/")        //redirect to the root page
     }

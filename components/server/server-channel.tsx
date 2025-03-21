@@ -19,7 +19,7 @@ const channelIconMap = {
 
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "../action-tooltip";
-import { useModal } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal-store";
 
 export const ServerChannel = ({
     channel,
@@ -33,11 +33,20 @@ export const ServerChannel = ({
 
     //create dynamic icon for each channel
     const Icon = channelIconMap[channel.type];
+
+    const onClick = () => {
+        router.push(`/servers/${params?.serverId}/channels/${channel.id}`)
+    }
+
+    const onAction = (e: React.MouseEvent, action: ModalType) => {
+        e.stopPropagation();
+        onOpen(action, { channel, server });
+    }
    
 
     return (
         <button
-            onClick={()=>{}}
+            onClick={onClick}
             className={cn(
                 "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1 cursor-pointer",
                 params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
@@ -60,7 +69,7 @@ export const ServerChannel = ({
                     <ActionTooltip label="Edit">
                         {/**Add a click event handler to enable editing server */}
                         <Edit
-                            onClick={() => onOpen("editChannel",{ server, channel })}
+                            onClick={(e) => onAction(e, "editChannel")}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
 
@@ -68,7 +77,7 @@ export const ServerChannel = ({
                     <ActionTooltip label="Delete">
                         {/**Add a click event handler to enable deleting server */}
                         <Trash
-                            onClick={() => onOpen("deleteChannel",{ server, channel })}
+                            onClick={(e) => onAction(e, "deleteChannel")}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
 

@@ -15,6 +15,8 @@ export const initialProfile = async () => {
     //get logged in user
     const user = await currentUser()
     const { userId, redirectToSignIn } = await auth()
+    
+
     //if both user or userId doesn't exist, redirect to sign in
     if (!user || !userId) {
         return redirectToSignIn()
