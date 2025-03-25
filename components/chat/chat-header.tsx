@@ -7,6 +7,7 @@ import { Hash, Menu, Mic, Video } from "lucide-react";
 import MobileToggle from "../mobile-toggle";
 import { ChannelType } from "@prisma/client";
 import { DiscordAvatar } from "../ui/discord-avatar";
+import { SocketIndicator } from "../ui/socket-indicator";
 
 interface ChatHeaderProps {
     serverId: string;
@@ -65,6 +66,9 @@ const ChatHeader = ({
             <p className="font-semibold text-md text-black dark:text-white">
                             {name}
             </p>  
+            <div className="ml-auto flex items-center">
+                <SocketIndicator/>
+            </div>
             
             
         </div> 
