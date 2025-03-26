@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Plus, Smile } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
+import { EmojiPicker } from "@/components/emoji-picker";
 /**
  * Define types for props here:
  *  apiUrl: URL required to send the message to
@@ -92,7 +93,7 @@ export const ChatInput = ({
                                     bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300
                                     transition rounded-full p-1 flex items-center justify-center"
                                 >
-                                    <Plus className="text-white dark:text-[#313338]"/>
+                                    <Plus className="text-white dark:text-[#313338] cursor-pointer"/>
 
                                 </button>
                                     <Input 
@@ -104,7 +105,9 @@ export const ChatInput = ({
                                     />
 
                                     <div className="absolute top-7 right-8">
-                                        <Smile />
+                                        <EmojiPicker 
+                                            onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)}
+                                        />
                                     </div>
                             </div>
                         </FormControl>
