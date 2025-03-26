@@ -52,14 +52,17 @@ export const ChatInput = ({
      * @param value 
      */
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        
         try {
+            console.log("sending...")
             const url = qs.stringifyUrl({
                 url: apiUrl,
                 query
 
             })
-
+            console.log(url, values);
             await axios.post(url, values);
+            form.reset();
 
         } catch (error) {
             console.log(error);
