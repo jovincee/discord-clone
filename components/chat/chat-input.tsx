@@ -4,6 +4,8 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import qs from "query-string";
 
 import {
     Form,
@@ -45,9 +47,23 @@ export const ChatInput = ({
     })
 
     const isLoading = form.formState.isSubmitting;
+    /**
+     * Create a URL so to cast an API POST call where the message's data is stored
+     * @param value 
+     */
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const url = qs.stringifyUrl({
+                url: apiUrl,
+                query
 
-    const onSubmit = async (value: z.infer<typeof formSchema>) => {
-        console.log(value)
+            })
+
+            await axios.post(url, values);
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
