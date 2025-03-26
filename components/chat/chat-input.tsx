@@ -16,8 +16,13 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Plus, Smile } from "lucide-react";
+import { useModal } from "@/hooks/use-modal-store";
 /**
  * Define types for props here:
+ *  apiUrl: URL required to send the message to
+ *  query: a query that queries through a record of ID's
+ *  name:
+ *  type: props can either be a conversation type (1 on 1 messaging) or channel
  */
 interface ChatInputProps {
     apiUrl: string;
@@ -39,6 +44,7 @@ export const ChatInput = ({
     name,
     type
 }: ChatInputProps) => {
+    const { onOpen } = useModal();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -81,7 +87,7 @@ export const ChatInput = ({
                             <div className="relative p-4 pb-6">
                                 <button
                                     type="button"
-                                    onClick={() => {}}
+                                    onClick={() => onOpen("messageFile", { apiUrl, query })}
                                     className="absolute top-7 left-8 h-[24px] w-[24px]
                                     bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300
                                     transition rounded-full p-1 flex items-center justify-center"

@@ -106,6 +106,7 @@ export default async function handler(
         //channelkey is required to emit socket messages to ALL members of the channel (real-time)
         const channelKey = `chat:${channelId}:messages`
 
+        //use socket to broadcast that a new message has been sent.
         res?.socket?.server?.io?.emit(channelKey, message);
 
         return res.status(200).json(message);
