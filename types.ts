@@ -13,7 +13,7 @@ Server & {
 
 export type NextApiResponseServerIo = NextApiResponse & {
     socket: Socket & {
-        server: Server & {
+        server: NetServer & {
             io: SocketIOServer;
         };
     };
