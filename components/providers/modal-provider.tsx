@@ -11,6 +11,7 @@ import { DeleteServerModal } from "@/components/modals/delete-server-modal";
 import { DeleteChannelModal } from "@/components/modals/delete-channel-modal";
 import { EditChannelModal } from "@/components/modals/edit-channel-modal";
 import { MessageFileModal } from "@/components/modals/message-file-modal";
+import { DeleteMessageModal } from "../modals/delete-message-modal";
 /**
  * Create a Modal Provider that provides instructions on how to obtain a value for a dependency
  * This provider also handles mounting and unmounting states of the components.
@@ -42,6 +43,7 @@ export const ModalProvider = () => {
             <DeleteChannelModal/>
             <EditChannelModal/>
             <MessageFileModal/>
+            <DeleteMessageModal/>
         
         </>
 

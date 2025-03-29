@@ -8,7 +8,7 @@ import { ChannelType, Server, Channel} from "@prisma/client";
 import { create } from "zustand";
 
 export type ModalType = "createServer" | "editServer" | "invite" | "members" | "createChannel" | "deleteChannel" | "editChannel" |
-"leaveServer" | "deleteServer" | "messageFile";
+"leaveServer" | "deleteServer" | "messageFile" | "deleteMessage";
 
 /**
  * Create a zustand store for modal; creating server, editing server, invite people,
