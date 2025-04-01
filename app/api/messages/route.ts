@@ -77,8 +77,8 @@ export async function GET (
         }
 
         return NextResponse.json({
-            item: messages,
-            cursor,
+            items: messages,
+            nextCursor,
         })
 
     } catch (error) {

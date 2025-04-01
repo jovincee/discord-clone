@@ -50,9 +50,9 @@ export const ChatMessages = ({
 
     const {
         data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
+        fetchNextPage,              //returns empty function
+        hasNextPage,                //returns false
+        isFetchingNextPage,         //return false
         status,
     } = useChatQuery({
         queryKey,
@@ -60,6 +60,8 @@ export const ChatMessages = ({
         paramKey,
         paramValue,
     });
+
+    console.log(fetchNextPage, hasNextPage, isFetchingNextPage);
 
     //activate chat socket hook here where user updates, deletes and gets message in real-time
     useChatSocket({ queryKey, addKey, updateKey});
@@ -73,7 +75,7 @@ export const ChatMessages = ({
         count: data?.pages?.[0].items?.length ?? 0,
     })
     //@ts-ignore
-    if (status === "loading") {
+    if (status === "pending") {
         return (
             <div className="flex flex-col flex-1 justify-center items-center">
                 <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4"/>
@@ -126,7 +128,7 @@ export const ChatMessages = ({
                 {data?.pages?.map((group, i) => ( 
                     
                     <Fragment key={i}>
-                        {group.item.map((message: MessageWithMemberWithProfile) => (
+                        {group.items.map((message: MessageWithMemberWithProfile) => (
                             <ChatItem
                                 key={message.id}
                                 id={message.id}

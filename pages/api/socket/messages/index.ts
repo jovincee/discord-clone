@@ -99,10 +99,6 @@ export default async function handler(
             }
         });
 
-        //if member doesn't exist
-        if (!message) {
-            return res.status(404).json({ message: "Message not created" });
-        }
         //channelkey is required to emit socket messages to ALL members of the channel (real-time)
         const channelKey = `chat:${channelId}:messages`
 
