@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import ChatHeader from "@/components/chat/chat-header";
 import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessages } from "@/components/chat/chat-messages";
+import { ChannelType } from "@prisma/client";
+import { MediaRoom } from "@/components/media-room";
 
 interface ChannelIdProps {
     params: Promise<{
@@ -62,22 +64,24 @@ const ChannelPage = async ({
                 channelType={channel.type}
             
             />
-            <ChatMessages 
-                name={channel.name}
-                member={member}
-                type="channel"
-                chatId={channel.id}
-                apiUrl="/api/messages"
-                socketUrl="/api/socket/messages"
-                socketQuery={{
-                    channelId: channel.id,
-                    serverId: channel.serverId,
-                }}
-                paramKey="channelId"
-                paramValue={channel.id}
-            
-            
-            />
+            {channel.type === ChannelType.TEXT && (
+                <>
+                <ChatMessages 
+                    name={channel.name}
+                    member={member}
+                    type="channel"
+                    chatId={channel.id}
+                    apiUrl="/api/messages"
+                    socketUrl="/api/socket/messages"
+                    socketQuery={{
+                        channelId: channel.id,
+                        serverId: channel.serverId,
+                    }}
+                    paramKey="channelId"
+                    paramValue={channel.id}
+                
+                
+                />
             <ChatInput apiUrl="/api/socket/messages" 
                 query={{
                     channelId: channel.id,
@@ -85,6 +89,21 @@ const ChannelPage = async ({
                 }} 
                 name={channel.name} 
                 type="channel"/>
+                </>
+            )}
+            {/**Conditional render for audio channel type */}
+            {channel.type === ChannelType.AUDIO && (
+                <MediaRoom 
+                    chatId={channel.id}
+                    video={false}
+                    audio={true}
+                
+                />
+            )}
+            {/**Conditional render for video channel type */}
+            {channel.type === ChannelType.VIDEO && (
+                <MediaRoom chatId={channel.id} video={true} audio={true} />
+            )}
 
         </div> 
     );
