@@ -20,6 +20,7 @@ export const useChatScroll = ({
     //useEffect for loading top messages
     useEffect(() => {
         const topDiv = chatRef?.current;
+        
 
         //event handler for loading top pages at the top of the scroll
         const handleScroll = () => {
