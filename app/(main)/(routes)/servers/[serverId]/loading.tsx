@@ -40,7 +40,7 @@ function Loading() {
             
         </div>
         {/**Skeleton components that appear just on the right of the server sidebar */}
-       <div className="flex flex-col gap-4 mt-4">
+       <div className="flex flex-col gap-4 mt-4 ">
             <Skeleton className="h-4 w-24" />
             <Skeleton className="h-100 w-100" />
 
