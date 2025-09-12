@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set NODE_OPTIONS=\"--max-old-space-size=4096\" next",
-    "start": "set NODE_OPTIONS=\"--max-old-space-size=4096\" start",
-    "build": "cross-env NODE_OPTIONS=\"--max_old_space_size=4096 --openssl-legacy-provider\" umi build",
+    "dev": "next dev",
+    "start": "next build",
+    "build": "next start",
     "lint": "next lint"
   },
   "dependencies": {
